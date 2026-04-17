@@ -1,0 +1,195 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+
+body {
+  margin: 0; /* 🔥 THIS removes side gap */
+  background-color: #0f172a;
+  color: white;
+}
+
+/* NAVBAR */
+nav {
+  position: absolute;   /* 🔥 important */
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 20px 60px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: transparent; /* 🔥 remove black */
+  z-index: 10; /* stay above image */
+}
+
+nav ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #22c55e;
+}
+
+.logo {
+  color: #22c55e;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* HERO */
+.hero {
+  width: 100%;
+  height: 65vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  position: relative;
+
+  background: url("./assets/cr.jpeg") no-repeat center;
+  background-size: cover;
+  background-position: center 5%;
+
+  padding-top: 80px; /* 🔥 push content down (for navbar space) */
+}
+/* OVERLAY */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.6) 0%,
+    rgba(2, 6, 23, 0.8) 40%,
+    rgba(15, 23, 42, 1) 100%
+  );
+
+  z-index: 1;
+}
+
+/* HERO CONTENT */
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 650px; /* 🔥 key fix */
+  width: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero h2 {
+  font-size: 42px;
+  line-height: 1.3;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+.hero p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #cbd5f5;
+}
+
+/* BUTTON */
+.hero button {
+  padding: 12px 24px;
+  width: auto; /* 🔥 REMOVE fixed width */
+  min-width: 180px;
+
+  border: none;
+  background: #22c55e;
+  color: black;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+
+  align-self: center;
+}
+
+.hero button:hover {
+  background: #16a34a;
+  transform: scale(1.05);
+}
+
+/* FEATURES */
+.features {
+  max-width: 1100px;
+  margin: -60px auto 0;
+  background: #0f172a; 
+  margin-top: +10px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+
+  padding: 40px 0; /* 🔥 removed side padding */
+}
+
+/* CARDS */
+.card {
+  background: #020617;
+
+  padding: 22px;
+  border-radius: 18px; /* 🔥 more smooth */
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  text-align: left;
+   overflow: hidden;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  /* 🔥 soft glow */
+  box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+}
+.card:hover {
+  transform: translateY(-5px);
+  transform: translateY(-5px);
+  border: 1px solid #22c55e;
+
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
+
+  border: 1px solid rgba(34, 197, 94, 0.2);
+
+  z-index: 2; /* 🔥 prevents overlap issues */
+}
+
+.card p {
+  color: #cbd5f5;
+}
+.features {
+  padding-bottom: 20px; /* 🔥 less bottom space */
+}
+.card h3 {
+  font-size: 18px;
+}
+
+.card p {
+  color: #cbd5f5;
+  font-size: 14px;
+}

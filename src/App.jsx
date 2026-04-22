@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
+import Programs from "./pages/Programs";
+import ActiveWorkout from "./pages/ActiveWorkout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Training from "./pages/Training";
 import Profile from "./pages/Profile";
-import ActiveWorkout from "./pages/ActiveWorkout"; // ✅ ADD THIS
 
 function App() {
   return (
@@ -19,8 +19,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/training" element={<Training />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/programs" element={<Programs />} />
 
-        {/* ✅ NEW ROUTE */}
+        {/* ✅ WORKOUT ROUTE */}
         <Route path="/workout" element={<ActiveWorkout />} />
       </Routes>
     </BrowserRouter>

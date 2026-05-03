@@ -1,176 +1,45 @@
-# React + Vite
+# CR7 React App ⚽  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 A React + Vite web application showcasing modern frontend development practices with reusable components and clean UI design.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 Overview
+This project is built using React and Vite to demonstrate fast development, component-based architecture, and responsive UI design.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ⚙️ Tech Stack
+- React  
+- Vite  
+- JavaScript  
+- CSS  
 
-## Expanding the ESLint configuration  ..
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-<!-- Update 1: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 2: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 3: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 4: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 5: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 6: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 7: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 8: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 9: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 10: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 11: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 12: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 13: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 14: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 15: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 16: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 1: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 2: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 3: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 4: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 5: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 6: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 7: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 8: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 9: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 10: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 11: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 12: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 13: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 14: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 15: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 16: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 17: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 18: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 19: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 20: Thu Apr 23 00:31:20 IST 2026 -->
-<!-- Update 1: Fri Apr 24 18:40:02 IST 2026 -->
-<!-- Update 2: Fri Apr 24 18:40:02 IST 2026 -->
-<!-- Update 3: Fri Apr 24 18:40:02 IST 2026 -->
-<!-- Update 4: Fri Apr 24 18:40:02 IST 2026 -->
-<!-- Update 5: Fri Apr 24 18:40:02 IST 2026 -->
-<!-- Update 6: Fri Apr 24 18:40:02 IST 2026 -->
-<!-- Update 7: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 8: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 9: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 10: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 11: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 12: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 13: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 14: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 15: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 16: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 17: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 18: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 19: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 20: Fri Apr 24 18:40:03 IST 2026 -->
-<!-- Update 1: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 2: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 3: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 4: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 5: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 6: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 7: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 8: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 9: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 10: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 11: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 12: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 13: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 14: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 15: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 16: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 17: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 18: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 19: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 20: Sat Apr 25 18:13:11 IST 2026 -->
-<!-- Update 1: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 2: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 3: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 4: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 5: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 6: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 7: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 8: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 9: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 10: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 11: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 12: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 13: Sun Apr 26 21:23:09 IST 2026 -->
-<!-- Update 14: Sun Apr 26 21:23:10 IST 2026 -->
-<!-- Update 15: Sun Apr 26 21:23:10 IST 2026 -->
-<!-- Update 1: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 2: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 3: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 4: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 5: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 6: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 7: Mon Apr 27 19:27:38 IST 2026 -->
-<!-- Update 8: Mon Apr 27 19:27:39 IST 2026 -->
-<!-- Update 9: Mon Apr 27 19:27:39 IST 2026 -->
-<!-- Update 10: Mon Apr 27 19:27:39 IST 2026 -->
-<!-- Update 1: Wed Apr 29 00:59:41 IST 2026 -->
-<!-- Update 2: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 3: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 4: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 5: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 6: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 7: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 8: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 9: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 10: Wed Apr 29 00:59:42 IST 2026 -->
-<!-- Update 1: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 2: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 3: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 4: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 5: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 6: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 7: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 8: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 9: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 10: Wed Apr 29 23:24:58 IST 2026 -->
-<!-- Update 1: Wed Apr 29 23:25:48 IST 2026 -->
-<!-- Update 2: Wed Apr 29 23:25:48 IST 2026 -->
-<!-- Update 3: Wed Apr 29 23:25:48 IST 2026 -->
-<!-- Update 4: Wed Apr 29 23:25:48 IST 2026 -->
-<!-- Update 5: Wed Apr 29 23:25:48 IST 2026 -->
-<!-- Update 6: Wed Apr 29 23:25:49 IST 2026 -->
-<!-- Update 7: Wed Apr 29 23:25:49 IST 2026 -->
-<!-- Update 8: Wed Apr 29 23:25:49 IST 2026 -->
-<!-- Update 9: Wed Apr 29 23:25:49 IST 2026 -->
-<!-- Update 10: Wed Apr 29 23:25:49 IST 2026 -->
-<!-- Update 1: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 2: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 3: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 4: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 5: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 6: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 7: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 8: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 9: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 10: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 11: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 12: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 13: Thu Apr 30 00:57:47 IST 2026 -->
-<!-- Update 1: Sat May  2 11:22:45 IST 2026 -->
-<!-- Update 2: Sat May  2 11:22:45 IST 2026 -->
-<!-- Update 3: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 4: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 5: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 6: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 7: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 8: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 9: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 10: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 11: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 12: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 13: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 14: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 15: Sat May  2 11:22:46 IST 2026 -->
-<!-- Update 16: Sat May  2 11:22:46 IST 2026 -->
+## 🧠 Project Structure
+
+src/
+├── components/   # Reusable UI components  
+├── pages/        # Page-level components  
+├── assets/       # Images & static files  
+└── App.jsx       # Root component  
+
+👉 Built with component-based architecture for scalability  
+
+---
+
+## ✨ Features
+- Reusable React components  
+- Fast development with Vite  
+- Clean UI design  
+- Responsive layout  
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone repo
+```bash
+git clone https://github.com/BarathArjun-B/cr7_react.git
+cd cr7_react

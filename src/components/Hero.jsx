@@ -1,9 +1,39 @@
 import Card from "./Card.jsx";
 import Button from "./Button.jsx";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Hero() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const hero = document.querySelector(".hero");
+      if (hero) {
+        hero.style.backgroundPositionY = `${window.scrollY * 0.4}px`;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   const features = [
     {
       title: "⚽ Ball Control",
@@ -31,7 +61,7 @@ function Hero() {
     <>
       <section className="hero">
         <div className="hero-content">
-          <h2>
+          <h2 className="fade-in">
             Train Like a Pro.
             <br />
             Start as a Beginner.
@@ -44,12 +74,13 @@ function Hero() {
         </div>
       </section>
 
-      <section className="features">
+      <section className="features reveal">
         {features.map((item, index) => (
           <Card
             key={index}
             title={item.title}
             desc={item.desc}
+            className="fade-card"
             onClick={() => {
               console.log("Feature card clicked:", item.path);
               navigate(item.path);

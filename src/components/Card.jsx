@@ -1,6 +1,6 @@
-function Card({ title, desc, onClick }) {
+function Card({ title, desc, className = "", onClick }) {
   return (
-    <div className="card" onClick={onClick}>
+    <div className={`card ${className}`.trim()} onClick={onClick}>
       <h3>{title}</h3>
       <p>{desc}</p>
     </div>

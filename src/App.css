@@ -11,7 +11,7 @@ body {
   margin: 0; /* 🔥 THIS removes side gap */
   background: linear-gradient(
       to bottom,
-      rgba(2, 6, 23, 0.85),
+      rgba(3, 7, 28, 0.85),
       rgba(2, 6, 23, 0.95)
     ),
     url("./assets/cr.jpeg") no-repeat center top;
@@ -193,43 +193,39 @@ nav a:hover::after {
 }
 /* CARDS */
 .card {
-  background: transparent;
-  backdrop-filter: blur(10px);
-
-  padding: 18px;
-  border-radius: 14px;
-  font-size: 14px;
-
+  position: relative;
+  height: 160px;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  overflow: hidden;
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
   gap: 8px;
-
+  padding: 18px;
   text-align: left;
-   overflow: hidden;
-
   transition: all 0.3s ease;
   cursor: pointer;
-
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+.card-overlay {
+  display: none;
+}
 .card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  z-index: 2;
+  transform: scale(1.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
-.card p {
-  color: #cbd5f5;
-}
 .card h3 {
-  font-size: 18px;
+  color: white;
+  font-size: 16px;
 }
 
 .card p {
-  color: #cbd5f5;
-  font-size: 14px;
+  color: #d1d5db;
+  font-size: 13px;
 }
 /* AUTH PAGE (LOGIN / REGISTER) */
 .auth-container {
@@ -378,38 +374,25 @@ nav a:hover::after {
   z-index: 1;
   padding-top: 100px; /* so navbar doesn't overlap */
   min-height: 100vh;
-  background: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
   overflow: hidden;
 }
 
 .workout-page::before {
-  content: none;
-}
-
-.workout-page::after {
-  content: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 0;
 }
 
 .workout-page::before,
 .workout-page::after {
   pointer-events: none;
-}
-
-.workout-page.attacker::before {
-  background-image: none;
-}
-
-.workout-page.midfielder::before {
-  background-image: none;
-}
-
-.workout-page.defender::before {
-  background-image: none;
-}
-
-.workout-page.gk::before {
-  background-image: none;
 }
 
 /* NAVBAR */
@@ -434,7 +417,7 @@ nav a:hover::after {
 /* CONTAINER */
 .workout-container {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   max-width: 1200px;
   margin: auto;
   padding: 40px;

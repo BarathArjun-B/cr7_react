@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../App.css";
+import attackerBg from "../assets/attack.jpg";
+import midfielderBg from "../assets/mid.jpg";
+import defenderBg from "../assets/def.jpg";
+import gkBg from "../assets/gk.jpg";
 
 const trainingData = {
   Attacker: {
@@ -35,6 +39,12 @@ const trainingData = {
 
 const positions = ["Attacker", "Midfielder", "Defender", "GK"];
 const phases = ["Warmup", "Technical", "Shooting", "Fitness", "Recovery"];
+const bgImages = {
+  Attacker: attackerBg,
+  Midfielder: midfielderBg,
+  Defender: defenderBg,
+  GK: gkBg
+};
 
 export default function ActiveWorkout() {
   const { position } = useParams();
@@ -46,7 +56,6 @@ export default function ActiveWorkout() {
         ? "GK"
         : position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()
       : "Attacker";
-  const positionClass = formattedPosition.toLowerCase();
   const [phase, setPhase] = useState("Warmup");
 
   console.log("URL:", position);
@@ -68,7 +77,12 @@ export default function ActiveWorkout() {
   }
 
   return (
-    <div className={`workout-page ${positionClass}`}>
+    <div
+      className="workout-page"
+      style={{
+        backgroundImage: `url(${bgImages[formattedPosition]})`
+      }}
+    >
       <div className="workout-container">
 
         {/* POSITION TABS */}

@@ -9,7 +9,7 @@
 
 body {
   margin: 0; /* 🔥 THIS removes side gap */
-  background-color: #0a142b;
+  background-color: #0f172a;
   color: white;
 }
 
@@ -55,7 +55,7 @@ nav a:hover {
 
 /* HERO */
 .hero {
-  width: 100%;             /* 🔥 FULL viewport width */
+  width: 100vw;              /* 🔥 FULL viewport width */
   height: 70vh;
 
   display: flex;
@@ -72,7 +72,7 @@ nav a:hover {
   padding-top: 80px;
 
   /* 🔥 THIS LINE FIXES SIDE BORDER ISSUE COMPLETELY */
-  
+  margin-left: calc(-50vw + 50%);
 }
 /* OVERLAY */
 .hero::before {
@@ -84,7 +84,7 @@ nav a:hover {
     to bottom,
     rgba(2, 6, 23, 0.6) 0%,
     rgba(2, 6, 23, 0.8) 40%,
-    #0f172a 100% 
+    rgba(15, 23, 42, 1) 100%
   );
 
   z-index: 1;
@@ -319,114 +319,4 @@ nav a:hover {
 
 .training-card button:hover {
   background: #16a34a;
-}
-/* WORKOUT PAGE */
-
-.workout-page {
-  min-height: 100vh;
-  background: #0a142b;
-  color: white;
-}
-
-/* NAVBAR */
-.workout-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 60px;
-  border-bottom: 1px solid #1f2937;
-}
-
-.workout-navbar h2 {
-  color: #22c55e;
-}
-
-.workout-navbar div {
-  display: flex;
-  gap: 30px;
-  color: #9ca3af;
-}
-
-/* CONTAINER */
-.workout-container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-/* POSITION */
-.position-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 30px;
-}
-
-.position-tabs button {
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: none;
-  background: #1f2937;
-  color: #9ca3af;
-  cursor: pointer;
-}
-
-.position-tabs .active {
-  background: #22c55e;
-  color: black;
-}
-
-/* VIDEO */
-.video-box {
-  max-width: 800px;
-  margin: 0 auto 30px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid #1f2937;
-}
-
-.video-box iframe {
-  width: 100%;
-  height: 400px;
-}
-
-/* PHASE */
-.phase-tabs {
-  display: flex;
-  gap: 25px;
-  border-bottom: 1px solid #1f2937;
-  margin-bottom: 25px;
-}
-
-.phase-tabs button {
-  background: none;
-  border: none;
-  color: #9ca3af;
-  padding-bottom: 8px;
-  cursor: pointer;
-}
-
-.phase-tabs .active {
-  color: #22c55e;
-  border-bottom: 2px solid #22c55e;
-}
-
-/* TEXT */
-.workout-text h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-
-.workout-text p {
-  color: #9ca3af;
-  margin-bottom: 25px;
-}
-
-.workout-text button {
-  padding: 12px 24px;
-  background: #22c55e;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
 }

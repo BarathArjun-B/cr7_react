@@ -1,105 +1,32 @@
-# CR7 React App ⚽  
+# React + Vite
 
-🚀 A React + Vite web application showcasing modern frontend development practices with reusable components and clean UI design.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 📌 Overview
-This project is built using React and Vite to demonstrate fast development, component-based architecture, and responsive UI design.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
----
+## React Compiler
 
-## ⚙️ Tech Stack
-- React  
-- Vite  
-- JavaScript  
-- CSS  
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
----
+## Expanding the ESLint configuration
 
-## 🧠 Project Structure
-
-src/
-├── components/   # Reusable UI components  
-├── pages/        # Page-level components  
-├── assets/       # Images & static files  
-└── App.jsx       # Root component  
-
-👉 Built with component-based architecture for scalability  
-
----
-
-## ✨ Features
-- Reusable React components  
-- Fast development with Vite  
-- Clean UI design  
-- Responsive layout  
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone repo
-```bash
-git clone https://github.com/BarathArjun-B/cr7_react.git
-cd cr7_react
-<!-- Update 1: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 2: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 3: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 4: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 5: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 6: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 7: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 8: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 9: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 10: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 11: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 12: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 13: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 14: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 15: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 16: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 17: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 18: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 19: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 20: Mon May  4 14:53:35 IST 2026 -->
-<!-- Update 1: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 2: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 3: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 4: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 5: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 6: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 7: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 8: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 9: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 10: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 11: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 12: Tue May  5 22:12:06 IST 2026 -->
-<!-- Update 13: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 14: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 15: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 16: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 17: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 18: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 19: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 20: Tue May  5 22:12:07 IST 2026 -->
-<!-- Update 1: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 2: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 3: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 4: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 5: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 6: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 7: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 8: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 9: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 10: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 11: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 12: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 13: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 14: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 15: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 16: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 17: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 18: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 19: Wed May  6 14:48:42 IST 2026 -->
-<!-- Update 20: Wed May  6 14:48:42 IST 2026 -->
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<!-- Update 1: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 2: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 3: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 4: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 5: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 6: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 7: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 8: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 9: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 10: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 11: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 12: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 13: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 14: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 15: Tue Apr 21 21:38:57 IST 2026 -->
+<!-- Update 16: Tue Apr 21 21:38:57 IST 2026 -->

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Programs from "./pages/Programs";
 import ActiveWorkout from "./pages/ActiveWorkout";
@@ -21,11 +21,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/programs" element={<Programs />} />
 
-        {/* ✅ Redirect if no position */}
-        <Route path="/workout" element={<Navigate to="/workout/Attacker" />} />
-
-        {/* ✅ Main route */}
-        <Route path="/workout/:position" element={<ActiveWorkout />} />
+        {/* ✅ WORKOUT ROUTE */}
+        <Route path="/workout" element={<ActiveWorkout />} />
       </Routes>
     </BrowserRouter>
   );

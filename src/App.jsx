@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Programs from "./pages/Programs";
 import ActiveWorkout from "./pages/ActiveWorkout";
@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Training from "./pages/Training";
 import Profile from "./pages/Profile";
+import Tutorial from "./pages/Tutorial";
 
 function App() {
   return (
@@ -18,11 +19,15 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/training" element={<Training />} />
+        <Route path="/tutorial/:type" element={<Tutorial />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/programs" element={<Programs />} />
 
-        {/* ✅ WORKOUT ROUTE */}
-        <Route path="/workout" element={<ActiveWorkout />} />
+        {/* ✅ Redirect if no position */}
+        <Route path="/workout" element={<Navigate to="/workout/Attacker" />} />
+
+        {/* ✅ Main route */}
+        <Route path="/workout/:position" element={<ActiveWorkout />} />
       </Routes>
     </BrowserRouter>
   );

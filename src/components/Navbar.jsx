@@ -11,7 +11,9 @@ function Navbar() {
 
   return (
     <nav>
-      <h1 className="logo">⚽ <b>ProBaller Academy</b></h1>
+      <h1 className="logo" onClick={() => navigate("/")}>
+        ⚽ <b>ProBaller Academy</b>
+      </h1>
 
       <ul>
         <li><Link to="/">Home</Link></li>

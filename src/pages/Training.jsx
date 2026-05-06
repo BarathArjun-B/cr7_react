@@ -18,7 +18,7 @@ function Training() {
         <p><b>Fitness:</b> Plyometrics, agility drills</p>
         <p><b>Recovery:</b> Jog + stretching</p>
 
-        <button onClick={() => navigate("/workout", { state: { position: "Attacker" } })}>
+        <button onClick={() => navigate("/workout/Attacker")}>
           Start Workout
         </button>
       </div>
@@ -33,7 +33,7 @@ function Training() {
         <p><b>Fitness:</b> Box-to-box runs</p>
         <p><b>Recovery:</b> Foam rolling + hydration</p>
 
-        <button onClick={() => navigate("/workout", { state: { position: "Midfielder" } })}>
+        <button onClick={() => navigate("/workout/Midfielder")}>
           Start Workout
         </button>
       </div>
@@ -48,7 +48,7 @@ function Training() {
         <p><b>Skills:</b> Fatigue dribbling</p>
         <p><b>Recovery:</b> Ice bath + stretching</p>
 
-        <button onClick={() => navigate("/workout", { state: { position: "Defender" } })}>
+        <button onClick={() => navigate("/workout/Defender")}>
           Start Workout
         </button>
       </div>
@@ -63,7 +63,7 @@ function Training() {
         <p><b>Fitness:</b> Explosive jumps</p>
         <p><b>Recovery:</b> Stretching</p>
 
-        <button onClick={() => navigate("/workout", { state: { position: "Goalkeeper" } })}>
+        <button onClick={() => navigate("/workout/GK")}>
           Start Workout
         </button>
       </div>

@@ -1,32 +1,135 @@
-# React + Vite
+# ⚽ ProBaller Academy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Train Like a Pro. Start as a Beginner.
 
-Currently, two official plugins are available:
+A modern football training web application that provides structured, position-based workout programs with an immersive UI and smooth user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔗 https://cr7-react-1.vercel.app
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-<!-- Update 1: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 2: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 3: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 4: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 5: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 6: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 7: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 8: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 9: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 10: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 11: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 12: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 13: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 14: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 15: Tue Apr 21 21:38:57 IST 2026 -->
-<!-- Update 16: Tue Apr 21 21:38:57 IST 2026 -->
+## ✨ Features
+
+* ⚡ **Position-Based Training**
+
+  * Attacker, Midfielder, Defender, Goalkeeper
+* 🎯 **Structured Workout Phases**
+
+  * Warmup, Technical, Shooting, Fitness, Recovery
+* 🎥 **Embedded Training Videos**
+
+  * Curated YouTube workouts for each phase
+* 🧭 **Dynamic Routing**
+
+  * Clean navigation between positions and phases
+* 🎨 **Modern UI/UX**
+
+  * Dark theme, smooth layout, responsive design
+* ⚙️ **Fast Performance**
+
+  * Built using Vite for lightning-fast load times
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** React (Vite)
+* **Routing:** React Router
+* **Styling:** CSS (Custom modern UI)
+* **Deployment:** Vercel
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+├── assets/          # Images and static files
+├── components/      # Reusable UI components
+├── pages/           # Main pages (Home, Training, Workout)
+├── App.jsx          # Main app routing
+├── main.jsx         # Entry point
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/BarathArjun-B/cr7_react.git
+cd cr7_react
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🚀 Deployment
+
+This project is deployed using **Vercel**.
+
+To deploy your own version:
+
+1. Push code to GitHub
+2. Import project in Vercel
+3. Set:
+
+   * Build Command: `npm run build`
+   * Output Directory: `dist`
+
+---
+
+## 📌 Future Enhancements (SaaS Upgrade Plan)
+
+* 🔐 User Authentication (Login / Signup)
+* 📊 Workout Progress Tracking
+* 📈 Personal Dashboard
+* 🧠 Smart Training Recommendations
+* 🌐 Full Backend Integration (Node.js + Database)
+
+---
+
+## 🎯 Purpose
+
+This project was built to:
+
+* Practice modern frontend development
+* Implement real-world UI/UX design
+* Build a scalable foundation for a full-stack SaaS product
+
+---
+
+## 👨‍💻 Author
+
+**Barath Arjun B**
+B.Tech CSE Student
+
+---
+
+## ⭐ Show Your Support
+
+If you like this project:
+
+* ⭐ Star the repo
+* 🍴 Fork it
+* 🚀 Share it
+
+---
+
+> “Talent without working hard is nothing.”

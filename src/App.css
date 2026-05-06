@@ -9,8 +9,38 @@
 
 body {
   margin: 0; /* 🔥 THIS removes side gap */
-  background-color: #0a142b;
+  background: linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.85),
+      rgba(2, 6, 23, 0.95)
+    ),
+    url("./assets/cr.jpeg") no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
   color: white;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 23, 49, 0.75);
+  z-index: -1;
 }
 
 
@@ -27,7 +57,7 @@ nav {
   justify-content: space-between;
   align-items: center;
 
-  background :transparent;; /* 🔥 remove black */
+  background: transparent;
   z-index: 9999;     /* very high */
 }
 
@@ -38,6 +68,7 @@ nav ul {
 }
 
 nav a {
+  position: relative;
   color: white;
   text-decoration: none;
   transition: 0.3s;
@@ -45,6 +76,21 @@ nav a {
 
 nav a:hover {
   color: #22c55e;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #22c55e;
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
 }
 
 .logo {
@@ -57,6 +103,8 @@ nav a:hover {
 /* HERO */
 .hero {
   width: 100%;             /* 🔥 FULL viewport width */
+  max-width: 100%;
+  margin: 0;
   height: 70vh;
 
   display: flex;
@@ -66,10 +114,6 @@ nav a:hover {
 
   position: relative;
 
-  background: url("./assets/cr.jpeg") no-repeat center;
-  background-size: cover;
-  background-position: center 5%;
-
   padding-top: 80px;
 
   /* 🔥 THIS LINE FIXES SIDE BORDER ISSUE COMPLETELY */
@@ -77,19 +121,11 @@ nav a:hover {
 }
 /* OVERLAY */
 .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+  content: none;
+}
 
-  background: linear-gradient(
-    to bottom,
-    rgba(2, 6, 23, 0.6) 0%,
-    rgba(2, 6, 23, 0.8) 40%,
-    #0f172a 100% 
-  );
-
-  z-index: 1;
-  pointer-events: none;
+.hero::after {
+  content: none;
 }
 
 /* HERO CONTENT */
@@ -97,13 +133,15 @@ nav a:hover {
   position: relative;
   z-index: 2;
 
-  max-width: 650px; /* 🔥 key fix */
+  max-width: 1200px;
   width: 100%;
-  padding: 20px;
+  margin: auto;
+  padding: 20px 40px;
 
   display: flex;
   flex-direction: column;
   gap: 20px;
+  text-align: center;
 }
 
 .hero h2 {
@@ -125,7 +163,7 @@ nav a:hover {
   min-width: 180px;
 
   border: none;
-  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: black;
   font-weight: bold;
   border-radius: 6px;
@@ -135,29 +173,32 @@ nav a:hover {
 }
 
 .hero button:hover {
-  background: #16a34a;
-  transform: scale(1.05);
+  transform: scale(1.04);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
 }
 
 /* FEATURES */
 
 .features {
   width: 100%;            /* 🔥 not 100vw */
-  margin: 0;              /* remove auto centering */
+  max-width: 1000px;
+  margin: auto;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  gap: 20px;
 
-  padding: 40px 80px;
-  background: #0f172a;
+  padding: 40px 20px;
+  background: transparent;
 }
 /* CARDS */
 .card {
-  background: #020617;
+  background: transparent;
+  backdrop-filter: blur(10px);
 
-  padding: 22px;
-  border-radius: 18px; /* 🔥 more smooth */
+  padding: 18px;
+  border-radius: 14px;
+  font-size: 14px;
 
   display: flex;
   flex-direction: column;
@@ -169,27 +210,18 @@ nav a:hover {
   transition: all 0.3s ease;
   cursor: pointer;
 
-  /* 🔥 soft glow */
-  box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .card:hover {
-  transform: translateY(-5px);
-  transform: translateY(-5px);
-  border: 1px solid #22c55e;
-
-  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
-
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18);
   border: 1px solid rgba(34, 197, 94, 0.2);
-
-  z-index: 2; /* 🔥 prevents overlap issues */
+  z-index: 2;
 }
 
 .card p {
   color: #cbd5f5;
-}
-.features {
-  width: 100%;
-  padding: 40px 60px;
 }
 .card h3 {
   font-size: 18px;
@@ -212,7 +244,7 @@ nav a:hover {
 
 /* CARD */
 .auth-card {
-  background: #020617;
+  background: transparent;
   padding: 40px 30px;
   border-radius: 16px;
 
@@ -253,7 +285,7 @@ nav a:hover {
   border: none;
   border-radius: 8px;
 
-  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: black;
   font-weight: bold;
 
@@ -262,8 +294,8 @@ nav a:hover {
 }
 
 .auth-card button:hover {
-  background: #16a34a;
   transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
 }
 .auth-card p {
   font-size: 15px;
@@ -271,9 +303,11 @@ nav a:hover {
 }
 /* TRAINING PAGE */
 .training-container {
-  padding: 120px 40px;
-  max-width: 1100px;
+  width: 100%;
+  max-width: 900px;
   margin: auto;
+  padding: 100px 20px;
+  background: transparent;
 }
 
 .training-title {
@@ -284,43 +318,58 @@ nav a:hover {
 
 /* CARD */
 .training-card {
-  background: #020617;
-  padding: 25px;
-  border-radius: 16px;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  padding: 18px;
+  border-radius: 14px;
   margin-bottom: 25px;
+  line-height: 1.5;
+  text-align: left;
 
   display: flex;
   flex-direction: column;
   gap: 10px;
 
   transition: 0.3s;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 .training-card:hover {
-  border: 1px solid #22c55e;
-  transform: translateY(-5px);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  transform: translateY(-6px) scale(1.02);
 }
 
 .training-card h2 {
   color: #22c55e;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.training-card p {
+  margin: 4px 0;
+  font-size: 14px;
 }
 
 /* BUTTON */
 .training-card button {
+  width: auto;
   margin-top: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
 
-  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: black;
   font-weight: bold;
   cursor: pointer;
+  display: block;
+  margin: 15px auto 0;
 }
 
 .training-card button:hover {
-  background: #16a34a;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
 }
 /* WORKOUT PAGE */
 
@@ -329,50 +378,38 @@ nav a:hover {
   z-index: 1;
   padding-top: 100px; /* so navbar doesn't overlap */
   min-height: 100vh;
-  background-color: #0a142b;
+  background: transparent;
   color: white;
   overflow: hidden;
 }
 
 .workout-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: blur(6px);
-  opacity: 0.25;
-  z-index: 0;
-  pointer-events: none;
+  content: none;
 }
 
 .workout-page::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 20, 43, 0.85),
-    rgba(10, 20, 43, 0.95)
-  );
-  z-index: 1;
+  content: none;
+}
+
+.workout-page::before,
+.workout-page::after {
   pointer-events: none;
 }
 
 .workout-page.attacker::before {
-  background-image: url("./assets/attack.jpg");
+  background-image: none;
 }
 
 .workout-page.midfielder::before {
-  background-image: url("./assets/mid.jpg");
+  background-image: none;
 }
 
 .workout-page.defender::before {
-  background-image: url("./assets/def.jpg");
+  background-image: none;
 }
 
 .workout-page.gk::before {
-  background-image: url("./assets/gk.jpg");
+  background-image: none;
 }
 
 /* NAVBAR */
@@ -397,16 +434,16 @@ nav a:hover {
 /* CONTAINER */
 .workout-container {
   position: relative;
-  z-index: 10;
-  max-width: 1000px;
+  z-index: 3;
+  max-width: 1200px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 40px;
 }
 
 /* POSITION */
 .position-tabs {
   position: relative;
-  z-index: 20;
+  z-index: 5;
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -415,7 +452,7 @@ nav a:hover {
 
 .position-tabs button {
   position: relative;
-  z-index: 30;
+  z-index: 6;
   padding: 8px 18px;
   border-radius: 20px;
   border: none;
@@ -437,7 +474,8 @@ nav a:hover {
   margin: 0 auto 30px;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #1f2937;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
 .video-box iframe {
@@ -480,17 +518,21 @@ nav a:hover {
 
 .workout-text button {
   padding: 12px 24px;
-  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   border: none;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
 }
 
+.workout-text button:hover {
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
+}
+
 .tutorial-page {
   min-height: 100vh;
+  background: url("./assets/ballc.jpg") no-repeat center center;
   background-size: cover;
-  background-position: center;
   position: relative;
 }
 
@@ -499,18 +541,16 @@ nav a:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(10, 20, 43, 0.85); /* dark overlay */
-  backdrop-filter: blur(4px); /* smooth blur */
-  z-index: 0;
+  background: rgba(10, 20, 43, 0.75);
   pointer-events: none;
 }
 
 .tutorial-container {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 120px auto;
-  padding: 20px;
+  padding: 20px 40px;
   text-align: center;
 }
 
@@ -518,7 +558,7 @@ nav a:hover {
   margin-bottom: 30px;
 }
 
-.video-box {
+.tutorial-container .video-box {
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
@@ -527,7 +567,7 @@ nav a:hover {
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-.video-box iframe {
+.tutorial-container .video-box iframe {
   width: 100%;
   height: 400px;
 }
@@ -535,4 +575,13 @@ nav a:hover {
 .tutorial-container p {
   color: #9ca3af;
   font-size: 16px;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
 }

@@ -3,6 +3,7 @@
 > Train Like a Pro. Start as a Beginner.
 
 A modern football training web application that provides structured, position-based workout programs with an immersive UI and smooth user experience.
+Hardwork beats talent when talent dosnt work hard
 
 ---
 

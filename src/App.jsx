@@ -29,6 +29,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/programs" element={<Programs />} />
 
         {/* ✅ Redirect if no position */}

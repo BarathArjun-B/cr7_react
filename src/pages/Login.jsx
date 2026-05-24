@@ -7,9 +7,12 @@ function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
+  const authMessage = location.state?.authMessage;
+  const redirectPath = location.state?.from?.pathname || "/profile";
 
   const handleChange = (event) => {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
@@ -18,15 +21,35 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
+
+    if (!form.email.trim() || !form.password) {
+      setError("Enter your email and password to continue.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       await login(form);
-      navigate(location.state?.from?.pathname || "/profile", { replace: true });
+      navigate(redirectPath, { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Check your credentials and try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    setGoogleLoading(true);
+
+    try {
+      await googleLogin();
+      navigate(redirectPath, { replace: true });
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || "Google sign-in failed. Try again.");
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -45,6 +68,7 @@ function Login() {
             <h2>LA MASIA ELITE</h2>
           </div>
 
+          {authMessage && <p className="form-hint">{authMessage}</p>}
           {error && <p className="form-alert">{error}</p>}
 
           <label>
@@ -71,8 +95,24 @@ function Login() {
             />
           </label>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading || googleLoading}>
             {loading ? "Authenticating..." : "Enter dashboard"}
+          </button>
+
+          <div className="auth-divider">
+            <span />
+            <p>or</p>
+            <span />
+          </div>
+
+          <button
+            className="google-auth-button"
+            type="button"
+            disabled={loading || googleLoading}
+            onClick={handleGoogleLogin}
+          >
+            <span className="google-mark">G</span>
+            {googleLoading ? "Opening Google..." : "Continue with Google"}
           </button>
 
           <p className="auth-switch">

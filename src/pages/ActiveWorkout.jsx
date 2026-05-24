@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
+import ProtectedAction from "../routes/ProtectedAction";
 import "../App.css";
 import attackerBg from "../assets/attack.jpg";
 import midfielderBg from "../assets/mid.jpg";
@@ -67,6 +68,19 @@ export default function ActiveWorkout() {
   }, [position, navigate]);
 
   const current = trainingData[formattedPosition]?.[phase];
+
+  const promptLoginForProgress = (message) => {
+    setCompletionState({ loading: false, message });
+    setTimeout(() => {
+      navigate("/login", {
+        state: {
+          from: { pathname: `/workout/${formattedPosition}` },
+          authMessage: message
+        }
+      });
+    }, 900);
+    return true;
+  };
 
   const completeCurrentWorkout = async () => {
     setCompletionState({ loading: true, message: "" });
@@ -160,9 +174,16 @@ export default function ActiveWorkout() {
         <div className="workout-text">
           <h2>{phase}</h2>
           <p>{current.desc}</p>
-          <button onClick={completeCurrentWorkout} disabled={completionState.loading}>
-            {completionState.loading ? "Logging session..." : "Complete Workout"}
-          </button>
+          <ProtectedAction onBlocked={promptLoginForProgress}>
+            {({ runProtectedAction }) => (
+              <button
+                onClick={() => runProtectedAction(completeCurrentWorkout)}
+                disabled={completionState.loading}
+              >
+                {completionState.loading ? "Logging session..." : "Complete Workout"}
+              </button>
+            )}
+          </ProtectedAction>
           {completionState.message && <p className="session-message">{completionState.message}</p>}
         </div>
 

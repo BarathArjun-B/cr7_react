@@ -1,18 +1,37 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import api from "../services/api";
+import { authService } from "../services/authService";
+import { clearAuthSession, getStoredAuthSession, saveAuthSession } from "../services/sessionStorage";
 import { AuthContext } from "./authContextValue";
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => getStoredAuthSession().user);
   const [loading, setLoading] = useState(true);
 
   const hydrateUser = useCallback(async () => {
+    const { accessToken } = getStoredAuthSession();
+
+    if (accessToken) {
+      try {
+        const response = await api.get("/auth/me");
+        const nextUser = response.data.data.user;
+        saveAuthSession({ accessToken, user: nextUser });
+        setUser(nextUser);
+        return;
+      } catch {
+        clearAuthSession();
+      }
+    }
+
     try {
-      const response = await api.get("/auth/me");
-      setUser(response.data.data.user);
+      const firebaseUser = await authService.restoreFirebaseSession();
+      setUser(firebaseUser);
+      if (!firebaseUser) {
+        clearAuthSession();
+      }
     } catch {
+      clearAuthSession();
       setUser(null);
-      localStorage.removeItem("accessToken");
     } finally {
       setLoading(false);
     }
@@ -22,34 +41,41 @@ export function AuthProvider({ children }) {
     hydrateUser();
   }, [hydrateUser]);
 
-  const login = async (credentials) => {
-    const response = await api.post("/auth/login", credentials);
-    const { user: nextUser, accessToken } = response.data.data;
-    localStorage.setItem("accessToken", accessToken);
+  const login = useCallback(async (credentials) => {
+    const nextUser = await authService.login(credentials);
     setUser(nextUser);
     return nextUser;
-  };
+  }, []);
 
-  const register = async (payload) => {
-    const response = await api.post("/auth/register", payload);
-    const { user: nextUser, accessToken } = response.data.data;
-    localStorage.setItem("accessToken", accessToken);
+  const register = useCallback(async (payload) => {
+    const nextUser = await authService.register(payload);
     setUser(nextUser);
     return nextUser;
-  };
+  }, []);
 
-  const logout = async () => {
-    try {
-      await api.post("/auth/logout");
-    } finally {
-      localStorage.removeItem("accessToken");
-      setUser(null);
-    }
-  };
+  const googleLogin = useCallback(async () => {
+    const nextUser = await authService.loginWithGoogle();
+    setUser(nextUser);
+    return nextUser;
+  }, []);
+
+  const logout = useCallback(async () => {
+    await authService.logout();
+    setUser(null);
+  }, []);
 
   const value = useMemo(
-    () => ({ user, loading, isAuthenticated: Boolean(user), login, register, logout, refreshUser: hydrateUser }),
-    [user, loading, hydrateUser]
+    () => ({
+      user,
+      loading,
+      isAuthenticated: Boolean(user),
+      login,
+      register,
+      googleLogin,
+      logout,
+      refreshUser: hydrateUser
+    }),
+    [user, loading, login, register, googleLogin, logout, hydrateUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

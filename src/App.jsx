@@ -39,18 +39,9 @@ function App() {
         />
         <Route path="/programs" element={<Programs />} />
 
-        {/* ✅ Redirect if no position */}
         <Route path="/workout" element={<Navigate to="/workout/Attacker" />} />
 
-        {/* ✅ Main route */}
-        <Route
-          path="/workout/:position"
-          element={
-            <ProtectedRoute>
-              <ActiveWorkout />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/workout/:position" element={<ActiveWorkout />} />
       </Routes>
     </BrowserRouter>
   );

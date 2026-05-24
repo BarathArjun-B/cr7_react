@@ -1,48 +1,86 @@
 import { useState } from "react";
-import API from "../api";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import "../App.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleChange = (event) => {
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
-      const res = await API.post("/users/login", { email, password });
-
-      localStorage.setItem("token", res.data.token);
-      navigate("/profile");
+      await login(form);
+      navigate(location.state?.from?.pathname || "/profile", { replace: true });
     } catch (err) {
-      alert("Login failed");
+      setError(err.response?.data?.message || "Login failed. Check your credentials and try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="auth-container">
-      <form className="auth-card" onSubmit={handleLogin}>
-        <h2>Login</h2>
+    <main className="auth-container elite-auth">
+      <section className="auth-panel">
+        <div className="auth-copy">
+          <span className="eyebrow">Academy access</span>
+          <h2>Return to your elite training room.</h2>
+          <p>Track sessions, collect XP, review tactical progress, and ask the AI coach what to sharpen next.</p>
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form className="auth-card glass-card" onSubmit={handleLogin}>
+          <div>
+            <span className="eyebrow">Sign in</span>
+            <h2>LA MASIA ELITE</h2>
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          {error && <p className="form-alert">{error}</p>}
 
-        <button type="submit">Login</button>
-      </form>
-    </div>
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              placeholder="player@academy.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              placeholder="Your secure password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </label>
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Authenticating..." : "Enter dashboard"}
+          </button>
+
+          <p className="auth-switch">
+            New player? <Link to="/register">Create academy account</Link>
+          </p>
+        </form>
+      </section>
+    </main>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import api from "../services/api";
 import "../App.css";
 import attackerBg from "../assets/attack.jpg";
 import midfielderBg from "../assets/mid.jpg";
@@ -57,8 +58,7 @@ export default function ActiveWorkout() {
         : position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()
       : "Attacker";
   const [phase, setPhase] = useState("Warmup");
-
-  console.log("URL:", position);
+  const [completionState, setCompletionState] = useState({ loading: false, message: "" });
 
   useEffect(() => {
     if (!position) {
@@ -67,6 +67,38 @@ export default function ActiveWorkout() {
   }, [position, navigate]);
 
   const current = trainingData[formattedPosition]?.[phase];
+
+  const completeCurrentWorkout = async () => {
+    setCompletionState({ loading: true, message: "" });
+
+    try {
+      const xpByPhase = {
+        Warmup: 35,
+        Technical: 80,
+        Shooting: 95,
+        Fitness: 90,
+        Recovery: 30
+      };
+
+      await api.post("/workouts/complete", {
+        title: `${formattedPosition} ${phase}`,
+        position: formattedPosition,
+        category: phase,
+        duration: phase === "Recovery" ? 12 : 20,
+        calories: phase === "Recovery" ? 35 : 135,
+        xpEarned: xpByPhase[phase],
+        videoUrl: current.video,
+        drillDifficulty: phase === "Shooting" || phase === "Fitness" ? "Advanced" : "Intermediate"
+      });
+
+      setCompletionState({ loading: false, message: `Logged +${xpByPhase[phase]} XP to your dashboard.` });
+    } catch (error) {
+      setCompletionState({
+        loading: false,
+        message: error.response?.data?.message || "Could not log workout. Try again."
+      });
+    }
+  };
 
   if (!trainingData[formattedPosition]) {
     return (
@@ -91,9 +123,9 @@ export default function ActiveWorkout() {
             <button
               key={pos}
               onClick={() => {
-                console.log("CLICK WORKING:", pos);
                 navigate(`/workout/${pos}`);
                 setPhase("Warmup");
+                setCompletionState({ loading: false, message: "" });
               }}
               className={formattedPosition === pos ? "active" : ""}
             >
@@ -128,7 +160,10 @@ export default function ActiveWorkout() {
         <div className="workout-text">
           <h2>{phase}</h2>
           <p>{current.desc}</p>
-          <button>Start Workout</button>
+          <button onClick={completeCurrentWorkout} disabled={completionState.loading}>
+            {completionState.loading ? "Logging session..." : "Complete Workout"}
+          </button>
+          {completionState.message && <p className="session-message">{completionState.message}</p>}
         </div>
 
       </div>

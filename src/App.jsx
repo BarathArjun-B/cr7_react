@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Training from "./pages/Training";
 import Profile from "./pages/Profile";
 import Tutorial from "./pages/Tutorial";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -20,14 +21,28 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/training" element={<Training />} />
         <Route path="/tutorial/:type" element={<Tutorial />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/programs" element={<Programs />} />
 
         {/* ✅ Redirect if no position */}
         <Route path="/workout" element={<Navigate to="/workout/Attacker" />} />
 
         {/* ✅ Main route */}
-        <Route path="/workout/:position" element={<ActiveWorkout />} />
+        <Route
+          path="/workout/:position"
+          element={
+            <ProtectedRoute>
+              <ActiveWorkout />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

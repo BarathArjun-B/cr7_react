@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../services/api";
+
 import ProtectedAction from "../routes/ProtectedAction";
 import "../App.css";
 import attackerBg from "../assets/attack.jpg";
@@ -94,22 +94,30 @@ export default function ActiveWorkout() {
         Recovery: 30
       };
 
-      await api.post("/workouts/complete", {
+      const duration = phase === "Recovery" ? 12 : 20;
+
+      // Import these inside or use the ones imported at the top
+      // We will add imports to the top of the file
+      const { addActivity, updateProgress } = await import("../utils/localStorage");
+      
+      addActivity({
         title: `${formattedPosition} ${phase}`,
         position: formattedPosition,
-        category: phase,
-        duration: phase === "Recovery" ? 12 : 20,
-        calories: phase === "Recovery" ? 35 : 135,
-        xpEarned: xpByPhase[phase],
-        videoUrl: current.video,
-        drillDifficulty: phase === "Shooting" || phase === "Fitness" ? "Advanced" : "Intermediate"
+        phase: phase,
+        date: new Date().toISOString(),
+        durationMinutes: duration,
+        xpEarned: xpByPhase[phase]
       });
+
+      // Update progress. Let's assume each time they complete, it adds 20% to that phase
+      // This is simplified logic based on the user's prompt "Track which phases are completed"
+      updateProgress(phase, 100);
 
       setCompletionState({ loading: false, message: `Logged +${xpByPhase[phase]} XP to your dashboard.` });
     } catch (error) {
       setCompletionState({
         loading: false,
-        message: error.response?.data?.message || "Could not log workout. Try again."
+        message: "Could not log workout. Try again."
       });
     }
   };

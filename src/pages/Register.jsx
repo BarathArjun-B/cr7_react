@@ -1,71 +1,55 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import "../App.css";
 
 function Register() {
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "", position: "" });
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const { register, googleLogin } = useAuth();
-  const redirectPath = location.state?.from?.pathname || "/profile";
+  const { register } = useAuth();
+
+  const validateField = (name, value) => {
+    let error = "";
+    if (!value) {
+      error = "This field is required";
+    } else if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      error = "Invalid email format";
+    } else if (name === "password" && value.length < 8) {
+      error = "Password must be at least 8 characters";
+    } else if (name === "confirmPassword" && value !== form.password) {
+      error = "Passwords do not match";
+    }
+    setErrors((prev) => ({ ...prev, [name]: error }));
+    return !error;
+  };
 
   const handleChange = (event) => {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
   };
 
+  const handleBlur = (event) => {
+    validateField(event.target.name, event.target.value);
+  };
+
   const handleRegister = async (event) => {
     event.preventDefault();
-    setError("");
-    setMessage("");
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!form.name.trim()) {
-      setError("Enter your full name to create an academy profile.");
-      return;
-    }
-    if (!emailPattern.test(form.email)) {
-      setError("Enter a valid email address.");
-      return;
-    }
-    if (form.password.length < 6) {
-      setError("Password must be at least 6 characters.");
-      return;
-    }
-    if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+    
+    const isValid = Object.keys(form).map(key => validateField(key, form[key])).every(Boolean);
+    if (!isValid) return;
 
     setLoading(true);
 
     try {
-      await register({ name: form.name, email: form.email, password: form.password });
-      setMessage("Account created. Your academy dashboard is ready.");
-      setTimeout(() => navigate(redirectPath), 600);
+      await register({ name: form.name, email: form.email, password: form.password, position: form.position });
+      setSuccess(true);
+      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Try a different email.");
+      setErrors({ form: err.message || "Registration failed." });
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogleRegister = async () => {
-    setError("");
-    setMessage("");
-    setGoogleLoading(true);
-
-    try {
-      await googleLogin();
-      navigate(redirectPath, { replace: true });
-    } catch (err) {
-      setError(err.response?.data?.message || err.message || "Google sign-in failed. Try again.");
-    } finally {
-      setGoogleLoading(false);
     }
   };
 
@@ -75,7 +59,7 @@ function Register() {
         <div className="auth-copy">
           <span className="eyebrow">Player onboarding</span>
           <h2>Build your football identity from day one.</h2>
-          <p>Secure profile, XP progression, session history, badges, analytics, and AI coaching in one academy-grade platform.</p>
+          <p>Secure profile, XP progression, session history, badges, and analytics natively in your browser.</p>
         </div>
 
         <form className="auth-card glass-card" onSubmit={handleRegister}>
@@ -84,77 +68,84 @@ function Register() {
             <h2>Join LA MASIA ELITE</h2>
           </div>
 
-          {error && <p className="form-alert">{error}</p>}
-          {message && <p className="form-success">{message}</p>}
+          {errors.form && <p className="form-alert">{errors.form}</p>}
+          
+          {success && (
+            <div className="toast-success">
+              Registration successful! Redirecting...
+            </div>
+          )}
 
-          <label>
-            Full name
+          <div className="input-group">
+            <label>Full name</label>
             <input
               type="text"
               name="name"
               placeholder="Alex Martinez"
               value={form.name}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
             />
-          </label>
+            {errors.name && <span className="inline-error">{errors.name}</span>}
+          </div>
 
-          <label>
-            Email
+          <div className="input-group">
+            <label>Email</label>
             <input
               type="email"
               name="email"
               placeholder="player@academy.com"
               value={form.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
             />
-          </label>
+            {errors.email && <span className="inline-error">{errors.email}</span>}
+          </div>
 
-          <label>
-            Password
+          <div className="input-group">
+            <label>Password</label>
             <input
               type="password"
               name="password"
-              placeholder="Minimum 6 characters"
+              placeholder="Minimum 8 characters"
               value={form.password}
               onChange={handleChange}
-              minLength={6}
+              onBlur={handleBlur}
               required
             />
-          </label>
+            {errors.password && <span className="inline-error">{errors.password}</span>}
+          </div>
 
-          <label>
-            Confirm password
+          <div className="input-group">
+            <label>Confirm password</label>
             <input
               type="password"
               name="confirmPassword"
               placeholder="Re-enter password"
               value={form.confirmPassword}
               onChange={handleChange}
-              minLength={6}
+              onBlur={handleBlur}
               required
             />
-          </label>
-
-          <button type="submit" disabled={loading || googleLoading}>
-            {loading ? "Creating profile..." : "Create academy account"}
-          </button>
-
-          <div className="auth-divider">
-            <span />
-            <p>or</p>
-            <span />
+            {errors.confirmPassword && <span className="inline-error">{errors.confirmPassword}</span>}
           </div>
 
-          <button
-            className="google-auth-button"
-            type="button"
-            disabled={loading || googleLoading}
-            onClick={handleGoogleRegister}
-          >
-            <span className="google-mark">G</span>
-            {googleLoading ? "Opening Google..." : "Continue with Google"}
+          <div className="input-group">
+            <label>Primary Position</label>
+            <select name="position" value={form.position} onChange={handleChange} onBlur={handleBlur} required>
+              <option value="">Select your position</option>
+              <option value="Attacker">Attacker</option>
+              <option value="Midfielder">Midfielder</option>
+              <option value="Defender">Defender</option>
+              <option value="Goalkeeper">Goalkeeper</option>
+            </select>
+            {errors.position && <span className="inline-error">{errors.position}</span>}
+          </div>
+
+          <button type="submit" disabled={loading || success}>
+            {loading ? "Creating profile..." : "Create academy account"}
           </button>
 
           <p className="auth-switch">

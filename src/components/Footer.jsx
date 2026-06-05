@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import "../App.css";
+import "./Footer.css";
 
 export default function Footer() {
   const { isAuthenticated } = useAuth();

@@ -10,6 +10,7 @@ import midfielderBg from "../assets/mid.jpg";
 import defenderBg from "../assets/def.jpg";
 import gkBg from "../assets/gk.jpg";
 import "../App.css";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const { currentUser } = useAuth();

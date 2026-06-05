@@ -342,7 +342,7 @@ function Hero() {
               <button onClick={() => navigate("/")}>Home</button>
               <button onClick={() => navigate("/training")}>Training</button>
               <button onClick={() => navigate("/programs")}>Programs</button>
-              <button onClick={() => navigate("/profile")}>Dashboard</button>
+              <button onClick={() => navigate("/dashboard")}>Dashboard</button>
             </div>
           </footer>
         </div>

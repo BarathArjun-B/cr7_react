@@ -6,7 +6,7 @@ const navItems = [
   { label: "Home", path: "/" },
   { label: "Training", path: "/training" },
   { label: "Programs", path: "/programs" },
-  { label: "Dashboard", path: "/profile" }
+  { label: "Dashboard", path: "/dashboard" }
 ];
 
 function Navbar() {

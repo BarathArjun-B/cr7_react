@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const navItems = [
@@ -15,6 +15,7 @@ function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18);
@@ -23,11 +24,27 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleLogout = async () => {
+  useEffect(() => {
+    function handleOutsideClick(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    }
+    if (menuOpen) document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  const handleLogout = useCallback(async () => {
     await logout();
     setMenuOpen(false);
     navigate("/login");
-  };
+  }, [logout, navigate]);
 
   const navClass = [
     "site-nav",
@@ -45,12 +62,27 @@ function Navbar() {
           </span>
         </button>
 
-        <nav className={`site-nav-links ${menuOpen ? "is-open" : ""}`}>
+        <nav className={`site-nav-links ${menuOpen ? "is-open" : ""}`} ref={menuRef}>
           {navItems.map((item) => (
-            <Link key={item.path} to={item.path} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === "/"}
+              className={({ isActive }) => isActive ? "nav-active" : ""}
+              onClick={() => setMenuOpen(false)}
+            >
               {item.label}
-            </Link>
+            </NavLink>
           ))}
+          {isAuthenticated && (
+            <NavLink
+              to="/profile"
+              className={({ isActive }) => isActive ? "nav-active" : ""}
+              onClick={() => setMenuOpen(false)}
+            >
+              Profile
+            </NavLink>
+          )}
           {!isAuthenticated ? (
             <Link className="site-nav-cta" to="/login" onClick={() => setMenuOpen(false)}>
               Login

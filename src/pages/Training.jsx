@@ -6,7 +6,7 @@ function Training() {
 
   return (
     <div className="training-container">
-      <h1 className="training-title">CR7 Training Modules</h1>
+      <h1 className="training-title">LA MASIA ELITE — Training Modules</h1>
 
       {/* ATTACKER */}
       <div className="training-card">

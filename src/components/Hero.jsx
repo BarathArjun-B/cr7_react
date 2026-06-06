@@ -332,19 +332,6 @@ function Hero() {
               </MotionArticle>
             ))}
           </div>
-
-          <footer className="landing-footer">
-            <div>
-              <strong>LA MASIA ELITE</strong>
-              <p>Immersive football training, analytics, and AI coaching in one premium academy platform.</p>
-            </div>
-            <div className="landing-footer-links">
-              <button onClick={() => navigate("/")}>Home</button>
-              <button onClick={() => navigate("/training")}>Training</button>
-              <button onClick={() => navigate("/programs")}>Programs</button>
-              <button onClick={() => navigate("/dashboard")}>Dashboard</button>
-            </div>
-          </footer>
         </div>
       </section>
     </main>

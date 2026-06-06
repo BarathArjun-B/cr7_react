@@ -16,7 +16,7 @@ function StatCard({ label, value, meta }) {
 }
 
 function Profile() {
-  const { user, refreshUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [dashboard, setDashboard] = useState(null);
   const [coachMessage, setCoachMessage] = useState("How can I improve weak foot passing?");
   const [coachReply, setCoachReply] = useState(null);
@@ -24,14 +24,18 @@ function Profile() {
 
   useEffect(() => {
     const fetchDashboard = async () => {
-      const response = await api.get("/dashboard");
-      setDashboard(response.data.data);
+      try {
+        const response = await api.get("/dashboard");
+        setDashboard(response.data.data);
+      } catch (error) {
+        console.error("Failed to fetch dashboard:", error.message);
+      }
     };
 
-    fetchDashboard().catch((error) => console.error(error.response?.data?.message || error.message));
+    fetchDashboard();
   }, []);
 
-  const player = dashboard?.player || user;
+  const player = dashboard?.player || currentUser;
   const analytics = dashboard?.analytics;
   const workouts = dashboard?.workouts || [];
 
@@ -50,15 +54,20 @@ function Profile() {
         position: analytics?.positionSpecialization || "All"
       });
       setCoachReply(response.data.data);
+    } catch (error) {
+      console.error("Coach error:", error.message);
     } finally {
       setLoadingCoach(false);
     }
   };
 
   const refreshDashboard = async () => {
-    await refreshUser();
-    const response = await api.get("/dashboard");
-    setDashboard(response.data.data);
+    try {
+      const response = await api.get("/dashboard");
+      setDashboard(response.data.data);
+    } catch (error) {
+      console.error("Refresh failed:", error.message);
+    }
   };
 
   return (

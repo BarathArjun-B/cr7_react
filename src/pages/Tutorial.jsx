@@ -37,7 +37,6 @@ const bgImages = {
 
 export default function Tutorial() {
   const { type } = useParams();
-  console.log(type);
   const data = tutorialData[type];
 
   if (!data) {

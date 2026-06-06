@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { getActivity, getProgress } from "../utils/localStorage";
 import StatsCard from "../components/StatsCard";
@@ -14,6 +15,7 @@ import "./Dashboard.css";
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
   const [progress, setProgress] = useState({});
   const [dateStr, setDateStr] = useState("");
@@ -24,14 +26,26 @@ export default function Dashboard() {
     setDateStr(new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
   }, []);
 
-  const totalMinutes = activities.reduce((acc, curr) => acc + (curr.durationMinutes || 0), 0);
+  useEffect(() => {
+    const refresh = () => {
+      setActivities(getActivity());
+      setProgress(getProgress());
+    };
+    window.addEventListener("workout-completed", refresh);
+    return () => window.removeEventListener("workout-completed", refresh);
+  }, []);
+
+  const totalMinutes = useMemo(() => 
+    activities.reduce((acc, curr) => acc + (curr.durationMinutes || 0), 0), 
+    [activities]
+  );
   const workoutsCount = activities.length;
   
   // Calculate streak based on local dates
-  const calculateStreak = () => {
+  const streak = useMemo(() => {
     if (activities.length === 0) return 0;
     
-    let streak = 0;
+    let streakCount = 0;
     let currentDate = new Date();
     currentDate.setHours(0,0,0,0);
     
@@ -44,13 +58,13 @@ export default function Dashboard() {
 
     // If they trained today, streak is at least 1
     if (trainedDates.has(currentDate.getTime())) {
-      streak = 1;
+      streakCount = 1;
       currentDate.setDate(currentDate.getDate() - 1);
     } else {
       // Check if they trained yesterday
       currentDate.setDate(currentDate.getDate() - 1);
       if (trainedDates.has(currentDate.getTime())) {
-        streak = 1;
+        streakCount = 1;
         currentDate.setDate(currentDate.getDate() - 1);
       } else {
         return 0; // No streak
@@ -59,27 +73,38 @@ export default function Dashboard() {
 
     // Count backwards
     while(trainedDates.has(currentDate.getTime())) {
-      streak++;
+      streakCount++;
       currentDate.setDate(currentDate.getDate() - 1);
     }
     
-    return streak;
-  };
-
-  const streak = calculateStreak();
+    return streakCount;
+  }, [activities]);
 
   return (
     <div className="dashboard-page">
       <div className="dashboard-header">
-        <h1>Welcome back, {currentUser?.name?.split(' ')[0] || "Player"} 👋</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+          <h1>Welcome back, {currentUser?.name?.split(' ')[0] || "Player"} 👋</h1>
+          {currentUser?.position && (
+            <span className="position-badge">{currentUser.position}</span>
+          )}
+          <Link to="/profile" style={{ fontSize: "13px", color: "var(--color-muted)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.2)" }}>
+            View Full Profile →
+          </Link>
+        </div>
         <p className="dashboard-date">{dateStr}</p>
-        {currentUser?.position && (
-          <span className="position-badge">{currentUser.position}</span>
-        )}
       </div>
 
       <div className="dashboard-grid">
         <div className="dashboard-main">
+          {workoutsCount === 0 && (
+            <div className="welcome-card">
+              <h3>Welcome to LA MASIA ELITE 🏆</h3>
+              <p>Complete your first workout to start tracking your progress.</p>
+              <button onClick={() => navigate("/training")}>Start First Workout</button>
+            </div>
+          )}
+
           <div className="stats-row">
             <StatsCard title="Sessions Completed" value={workoutsCount} />
             <StatsCard title="Current Streak" value={`${streak} Days`} />

@@ -6,6 +6,7 @@ import "../App.css";
 function Login() {
   const [form, setForm] = useState({ email: "", password: "", remember: false });
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
+    setSuccessMsg("");
 
     if (!form.email.trim() || !form.password) {
       setError("Enter your email and password to continue.");
@@ -35,7 +37,8 @@ function Login() {
 
     try {
       await login(form.email, form.password, form.remember);
-      navigate(redirectPath, { replace: true });
+      setSuccessMsg("Welcome back! Redirecting...");
+      setTimeout(() => navigate(redirectPath, { replace: true }), 800);
     } catch (err) {
       setError(err.message || "Login failed. Check your credentials and try again.");
     } finally {
@@ -58,29 +61,40 @@ function Login() {
             <h2>LA MASIA ELITE</h2>
           </div>
 
+          {location.state?.authMessage && (
+            <p className="form-info">{location.state.authMessage}</p>
+          )}
+
           {error && <p className="form-alert">{error}</p>}
 
+          {successMsg && <p className="toast-success">{successMsg}</p>}
+
           <div className="input-group">
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               placeholder="player@academy.com"
               value={form.email}
               onChange={handleChange}
+              autoComplete="email"
               required
             />
           </div>
 
           <div className="input-group">
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <div className="password-input-wrapper" style={{ position: "relative", display: "flex", alignItems: "center" }}>
               <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Your secure password"
                 value={form.password}
                 onChange={handleChange}
+                autoComplete="current-password"
+                aria-describedby={error ? "password-error" : undefined}
                 style={{ width: "100%", paddingRight: "40px" }}
                 required
               />

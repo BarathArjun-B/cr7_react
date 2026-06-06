@@ -115,6 +115,11 @@
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.social-icons a svg {
+  display: block;
 }
 
 .social-icons a:hover {

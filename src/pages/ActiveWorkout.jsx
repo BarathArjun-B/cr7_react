@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import ProtectedAction from "../routes/ProtectedAction";
+import useTimer from "../hooks/useTimer";
 import "../App.css";
 import attackerBg from "../assets/attack.jpg";
 import midfielderBg from "../assets/mid.jpg";
 import defenderBg from "../assets/def.jpg";
 import gkBg from "../assets/gk.jpg";
+import { addActivity, updateProgress, getCompletedPhases, markPhaseComplete } from "../utils/localStorage";
 
 const trainingData = {
   Attacker: {
@@ -51,21 +53,26 @@ const bgImages = {
 export default function ActiveWorkout() {
   const { position } = useParams();
   const navigate = useNavigate();
+  const seconds = useTimer();
 
-  const formattedPosition =
-    position
-      ? position.toLowerCase() === "gk"
-        ? "GK"
-        : position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()
-      : "Attacker";
+  const formattedPosition = (() => {
+    if (!position) return "Attacker";
+    const p = position.toLowerCase();
+    if (p === "gk" || p === "goalkeeper") return "GK";
+    return position.charAt(0).toUpperCase() + position.slice(1).toLowerCase();
+  })();
   const [phase, setPhase] = useState("Warmup");
   const [completionState, setCompletionState] = useState({ loading: false, message: "" });
+  const [completedPhases, setCompletedPhases] = useState({});
+
+  const formatTime = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
   useEffect(() => {
     if (!position) {
       navigate("/workout/Attacker", { replace: true });
     }
-  }, [position, navigate]);
+    setCompletedPhases(getCompletedPhases());
+  }, [position, navigate, formattedPosition]);
 
   const current = trainingData[formattedPosition]?.[phase];
 
@@ -96,10 +103,6 @@ export default function ActiveWorkout() {
 
       const duration = phase === "Recovery" ? 12 : 20;
 
-      // Import these inside or use the ones imported at the top
-      // We will add imports to the top of the file
-      const { addActivity, updateProgress } = await import("../utils/localStorage");
-      
       addActivity({
         title: `${formattedPosition} ${phase}`,
         position: formattedPosition,
@@ -109,11 +112,15 @@ export default function ActiveWorkout() {
         xpEarned: xpByPhase[phase]
       });
 
-      // Update progress. Let's assume each time they complete, it adds 20% to that phase
-      // This is simplified logic based on the user's prompt "Track which phases are completed"
+      // Update progress
       updateProgress(phase, 100);
 
+      // Mark phase as complete
+      markPhaseComplete(formattedPosition, phase);
+      setCompletedPhases(getCompletedPhases());
+
       setCompletionState({ loading: false, message: `Logged +${xpByPhase[phase]} XP to your dashboard.` });
+      window.dispatchEvent(new Event("workout-completed"));
     } catch (error) {
       setCompletionState({
         loading: false,
@@ -157,11 +164,18 @@ export default function ActiveWorkout() {
         </div>
 
         {/* VIDEO */}
-        <div className="video-box">
+        <div className="video-box" style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden", borderRadius: "12px" }}>
           <iframe
             src={current.video}
-            title="Workout Video"
+            title={`${formattedPosition} ${phase} Training`}
             allowFullScreen
+            style={{
+              position: "absolute",
+              top: 0, left: 0,
+              width: "100%", height: "100%",
+              border: "none",
+              borderRadius: "12px"
+            }}
           ></iframe>
         </div>
 
@@ -173,7 +187,7 @@ export default function ActiveWorkout() {
               onClick={() => setPhase(p)}
               className={phase === p ? "active" : ""}
             >
-              {p}
+              {completedPhases[formattedPosition]?.includes(p) ? "✓ " : ""}{p}
             </button>
           ))}
         </div>
@@ -181,6 +195,7 @@ export default function ActiveWorkout() {
         {/* TEXT */}
         <div className="workout-text">
           <h2>{phase}</h2>
+          <p className="workout-timer">⏱ {formatTime(seconds)}</p>
           <p>{current.desc}</p>
           <ProtectedAction onBlocked={promptLoginForProgress}>
             {({ runProtectedAction }) => (
@@ -192,7 +207,9 @@ export default function ActiveWorkout() {
               </button>
             )}
           </ProtectedAction>
-          {completionState.message && <p className="session-message">{completionState.message}</p>}
+          <div aria-live="polite" role="status">
+            {completionState.message && <p className="session-message">{completionState.message}</p>}
+          </div>
         </div>
 
       </div>

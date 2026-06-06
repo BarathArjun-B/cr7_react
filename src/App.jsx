@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Training from "./pages/Training";
 import Dashboard from "./pages/Dashboard";
 import Tutorial from "./pages/Tutorial";
+import Profile from "./pages/Profile";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function Layout() {
@@ -30,6 +31,14 @@ function Layout() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />

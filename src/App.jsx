@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Tutorial from "./pages/Tutorial";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Basics from "./pages/Basics";
 
 function Layout() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/basics" element={<Basics />} />
           <Route path="/training" element={<Training />} />
           <Route path="/tutorial/:type" element={<Tutorial />} />
           <Route

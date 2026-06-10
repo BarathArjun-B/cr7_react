@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 
 const navItems = [
   { label: "Home", path: "/" },
+  { label: "Basics", path: "/basics" },
   { label: "Training", path: "/training" },
   { label: "Programs", path: "/programs" },
   { label: "Dashboard", path: "/dashboard" }

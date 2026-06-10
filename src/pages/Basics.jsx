@@ -1,14 +1,16 @@
+import "../App.css";
 import { useNavigate } from "react-router-dom";
 import ballControlImg from "../assets/ballc.jpg";
-import passingImg     from "../assets/pass.jpg";
-import dribblingImg   from "../assets/drib.jpg";
-import shootingImg    from "../assets/shoot.jpg";
+import passingImg from "../assets/pass.jpg";
+import dribblingImg from "../assets/drib.jpg";
+import shootingImg from "../assets/shoot.jpg";
 
 const skills = [
   {
     eyebrow: "Ball Control",
     title: "Ball Control Mastery",
-    description: "Dominate the ball under pressure. First touch, close control, and body orientation drills that separate elite players from the rest.",
+    description:
+      "Dominate the ball under pressure. First touch, close control, and body orientation drills that separate elite players from the rest.",
     image: ballControlImg,
     imagePosition: "center 36%",
     accent: "ball-control",
@@ -21,7 +23,8 @@ const skills = [
   {
     eyebrow: "Passing",
     title: "Precision Passing Lab",
-    description: "Short, long, through-balls, and driven passes. Build the range and accuracy that keeps your team ahead of the press.",
+    description:
+      "Short, long, through-balls, and driven passes. Build the range and accuracy that keeps your team ahead of the press.",
     image: passingImg,
     imagePosition: "center 30%",
     accent: "passing",
@@ -34,7 +37,8 @@ const skills = [
   {
     eyebrow: "Dribbling",
     title: "Dribbling Command",
-    description: "Beat defenders with confidence. Speed dribbling, tight-space moves, and directional changes that keep opponents guessing.",
+    description:
+      "Beat defenders with confidence. Speed dribbling, tight-space moves, and directional changes that keep opponents guessing.",
     image: dribblingImg,
     imagePosition: "center 25%",
     accent: "dribbling",
@@ -47,7 +51,8 @@ const skills = [
   {
     eyebrow: "Shooting",
     title: "Finishing Academy",
-    description: "Power, placement, composure. Technique-first finishing drills that build the muscle memory to score when it matters most.",
+    description:
+      "Power, placement, composure. Technique-first finishing drills that build the muscle memory to score when it matters most.",
     image: shootingImg,
     imagePosition: "center 18%",
     accent: "shooting",
@@ -67,21 +72,14 @@ function SkillCard({ skill, onOpen }) {
         borderColor: skill.borderColor,
         "--card-hover-border": skill.borderHoverColor
       }}
-      onMouseEnter={e => e.currentTarget.style.borderColor = skill.borderHoverColor}
-      onMouseLeave={e => e.currentTarget.style.borderColor = skill.borderColor}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = skill.borderHoverColor)}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = skill.borderColor)}
     >
       <div className="program-card-media">
-        <img
-          src={skill.image}
-          alt={skill.title}
-          loading="lazy"
-          style={{ objectPosition: skill.imagePosition }}
-        />
+        <img src={skill.image} alt={skill.title} loading="lazy" style={{ objectPosition: skill.imagePosition }} />
         <div
           className="program-card-image-glow"
-          style={{
-            background: `radial-gradient(circle at 50% 18%, ${skill.glowColor}, transparent 45%)`
-          }}
+          style={{ background: `radial-gradient(circle at 50% 18%, ${skill.glowColor}, transparent 45%)` }}
         />
         <div className="program-card-media-overlay" />
       </div>
@@ -90,11 +88,7 @@ function SkillCard({ skill, onOpen }) {
         <span>{skill.eyebrow}</span>
         <h2>{skill.title}</h2>
         <p>{skill.description}</p>
-        <button
-          className="program-card-cta"
-          onClick={() => onOpen(`/basics#${skill.id}`)}
-          aria-label={`Open ${skill.title} tutorial`}
-        >
+        <button className="program-card-cta" onClick={() => onOpen(skill.path)} aria-label={`Open ${skill.title} tutorial`}>
           Open Tutorial
         </button>
       </div>
@@ -102,24 +96,26 @@ function SkillCard({ skill, onOpen }) {
   );
 }
 
-function Features() {
+function Basics() {
   const navigate = useNavigate();
+
+  const openHandler = (path) => {
+    // navigate to tutorial or to an anchor; default to tutorial path
+    navigate(path);
+  };
 
   return (
     <section className="skills-section">
       <div className="skills-shell">
         <div className="skills-heading">
-          <span className="eyebrow">Core Techniques</span>
-          <h2>Master the fundamentals that define elite players.</h2>
-          <p>
-            Four essential skill blocks — each with structured drills and video tutorials
-            designed around the technical demands of modern football.
-          </p>
+          <span className="eyebrow">Basics</span>
+          <h2>Football Fundamentals</h2>
+          <p>Master the core technical skills every elite footballer must develop.</p>
         </div>
 
         <div className="program-grid skills-grid">
-          {skills.map(skill => (
-            <SkillCard key={skill.accent} skill={skill} onOpen={navigate} />
+          {skills.map((skill) => (
+            <SkillCard key={skill.id} skill={skill} onOpen={openHandler} />
           ))}
         </div>
       </div>
@@ -127,4 +123,4 @@ function Features() {
   );
 }
 
-export default Features;
+export default Basics;

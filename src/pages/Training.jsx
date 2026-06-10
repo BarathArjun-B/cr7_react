@@ -8,6 +8,11 @@ function Training() {
     <div className="training-container">
       <h1 className="training-title">LA MASIA ELITE — Training Modules</h1>
 
+      <p>
+        The technical fundamentals (Ball Control, Passing, Dribbling, Shooting) are available under
+        the <button className="link-button" onClick={() => navigate('/basics')}>Basics</button> section.
+      </p>
+
       {/* ATTACKER */}
       <div className="training-card">
         <h2>🔥 BA7 Finisher (Attacker)</h2>
@@ -18,9 +23,7 @@ function Training() {
         <p><b>Fitness:</b> Plyometrics, agility drills</p>
         <p><b>Recovery:</b> Jog + stretching</p>
 
-        <button onClick={() => navigate("/workout/Attacker")}>
-          Start Workout
-        </button>
+        <button onClick={() => navigate("/workout/Attacker")}>Start Workout</button>
       </div>
 
       {/* MIDFIELDER */}
@@ -33,9 +36,7 @@ function Training() {
         <p><b>Fitness:</b> Box-to-box runs</p>
         <p><b>Recovery:</b> Foam rolling + hydration</p>
 
-        <button onClick={() => navigate("/workout/Midfielder")}>
-          Start Workout
-        </button>
+        <button onClick={() => navigate("/workout/Midfielder")}>Start Workout</button>
       </div>
 
       {/* DEFENDER */}
@@ -48,9 +49,7 @@ function Training() {
         <p><b>Skills:</b> Fatigue dribbling</p>
         <p><b>Recovery:</b> Ice bath + stretching</p>
 
-        <button onClick={() => navigate("/workout/Defender")}>
-          Start Workout
-        </button>
+        <button onClick={() => navigate("/workout/Defender")}>Start Workout</button>
       </div>
 
       {/* GOALKEEPER */}
@@ -63,9 +62,7 @@ function Training() {
         <p><b>Fitness:</b> Explosive jumps</p>
         <p><b>Recovery:</b> Stretching</p>
 
-        <button onClick={() => navigate("/workout/GK")}>
-          Start Workout
-        </button>
+        <button onClick={() => navigate("/workout/GK")}>Start Workout</button>
       </div>
     </div>
   );

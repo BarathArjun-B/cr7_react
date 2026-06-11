@@ -9,9 +9,11 @@ function Login() {
   const [successMsg, setSuccessMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [googleError, setGoogleError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   
   const redirectPath = location.state?.from?.pathname || "/dashboard";
 
@@ -139,6 +141,41 @@ function Login() {
           <button type="submit" disabled={loading} style={{ marginTop: "20px" }}>
             {loading ? "Authenticating..." : "Enter dashboard"}
           </button>
+
+          {/* Google Sign-In — uses existing .google-auth-button and .auth-divider CSS */}
+          <button
+            type="button"
+            className="google-auth-button"
+            onClick={async () => {
+              setGoogleLoading(true);
+              setGoogleError("");
+              try {
+                await googleLogin();
+                navigate(redirectPath, { replace: true });
+              } catch (err) {
+                setGoogleError(err.message || "Google sign-in failed.");
+              } finally {
+                setGoogleLoading(false);
+              }
+            }}
+            disabled={googleLoading || loading}
+            aria-label="Sign in with Google"
+          >
+            {googleLoading ? (
+              <span className="loader-ring" style={{ width: 18, height: 18, borderWidth: 2 }} aria-hidden="true" />
+            ) : (
+              <span className="google-mark" aria-hidden="true">G</span>
+            )}
+            {googleLoading ? "Signing in with Google..." : "Continue with Google"}
+          </button>
+
+          {googleError && <p className="form-alert">{googleError}</p>}
+
+          <div className="auth-divider">
+            <span />
+            <p>or sign in with email</p>
+            <span />
+          </div>
 
           <p className="auth-switch">
             New player? <Link to="/register">Create academy account</Link>

@@ -84,7 +84,7 @@ export default function Dashboard() {
     <div className="dashboard-page">
       <div className="dashboard-header">
         <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-          <h1>Welcome back, {currentUser?.name?.split(' ')[0] || "Player"} 👋</h1>
+          <h1>Welcome back, {(currentUser?.name || currentUser?.displayName)?.split(' ')[0] || "Player"} 👋</h1>
           {currentUser?.position && (
             <span className="position-badge">{currentUser.position}</span>
           )}

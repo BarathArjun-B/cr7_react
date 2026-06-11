@@ -259,3 +259,17 @@
   opacity: 1;
   transform: translateX(4px);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RESPONSIVENESS FIXES — appended, no existing rules modified
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dashboard-page .positions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .dashboard-page .position-card { height: 200px; }
+}
+
+@media (max-width: 380px) {
+  .progress-row { grid-template-columns: 80px 1fr 44px; gap: 10px; }
+}

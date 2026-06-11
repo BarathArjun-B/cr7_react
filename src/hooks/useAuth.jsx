@@ -7,27 +7,47 @@ import {
   clearUserSession,
   getSessionMeta
 } from "../utils/localStorage";
+import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth, googleProvider } from "../services/firebase";
+import { setGoogleUser, clearGoogleSession } from "../utils/localStorage";
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUserState] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [googleError, setGoogleError] = useState(null);
   const [authError, setAuthError] = useState(null);
 
   useEffect(() => {
-    // Restore session from localStorage/sessionStorage on page refresh
-    try {
-      const stored = getCurrentUser();
-      if (stored) {
-        setCurrentUserState(stored);
-      }
-    } catch (err) {
-      console.error("Session restore failed:", err);
-      clearUserSession();
-    } finally {
+    // Step 1: Restore any existing localStorage/sessionStorage session immediately
+    const storedUser = getCurrentUser();
+    if (storedUser) {
+      setCurrentUserState(storedUser);
       setLoading(false);
+      return; // Session found — no need to wait for Firebase
     }
+
+    // Step 2: No stored session — listen for Firebase auth state
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // Firebase has a session — rebuild localStorage entry
+        setGoogleUser(firebaseUser);
+        setCurrentUserState({
+          uid:         firebaseUser.uid,
+          displayName: firebaseUser.displayName || "Elite Player",
+          email:       firebaseUser.email,
+          photoURL:    firebaseUser.photoURL || null,
+          loginTime:   new Date().toISOString(),
+          provider:    "google",
+          name:        firebaseUser.displayName || "Elite Player",
+        });
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const login = useCallback(async (email, password, remember = true) => {
@@ -61,6 +81,46 @@ export function AuthProvider({ children }) {
     return safeUser;
   }, []);
 
+  const googleLogin = async () => {
+    setGoogleLoading(true);
+    setGoogleError(null);
+    const errorMap = {
+      "auth/popup-closed-by-user":      "Sign-in was cancelled. Please try again.",
+      "auth/popup-blocked":             "Popup was blocked. Allow popups for this site and retry.",
+      "auth/cancelled-popup-request":   "Sign-in request was cancelled.",
+      "auth/network-request-failed":    "Network error. Check your connection and try again.",
+      "auth/user-disabled":             "This account has been disabled.",
+      "auth/account-exists-with-different-credential":
+        "An account already exists with this email using a different sign-in method."
+    };
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const firebaseUser = result.user;
+
+      const session = {
+        uid:         firebaseUser.uid,
+        displayName: firebaseUser.displayName || "Elite Player",
+        email:       firebaseUser.email,
+        photoURL:    firebaseUser.photoURL || null,
+        loginTime:   new Date().toISOString(),
+        provider:    "google",
+        name:        firebaseUser.displayName || "Elite Player",
+      };
+
+      // Persist to localStorage — same key as email sessions
+      setGoogleUser(firebaseUser);
+      setCurrentUserState(session);
+      return session;
+    } catch (err) {
+      const message = errorMap[err.code] || "Google sign-in failed. Please try again.";
+      setGoogleError(message);
+      throw new Error(message);
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
   const register = useCallback(async (userData) => {
     setAuthError(null);
     await new Promise(r => setTimeout(r, 700));
@@ -89,7 +149,13 @@ export function AuthProvider({ children }) {
     return newUser;
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    try {
+      await signOut(auth);
+    } catch {
+      // Non-critical
+    }
+    clearGoogleSession();
     clearUserSession();
     setCurrentUserState(null);
     setAuthError(null);
@@ -107,10 +173,13 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{
       currentUser,
       loading,
+      googleLoading,
+      googleError,
       authError,
       login,
       register,
       logout,
+      googleLogin,
       updateProfile,
       isAuthenticated: !!currentUser
     }}>

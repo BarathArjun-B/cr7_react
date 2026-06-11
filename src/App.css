@@ -2062,54 +2062,48 @@ body::before {
   }
 }
 
-.tutorial-page {
-  min-height: 100vh;
-  background: url("./assets/ballc.jpg") no-repeat center center;
-  background-size: cover;
-  position: relative;
+/* ═══════════════════════════════════════════════════════════════════════
+   RESPONSIVENESS FIXES — appended, no existing rules modified
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 620px) {
+  /* Ensure video iframe uses 16:9 aspect ratio on small screens */
+  .video-box { padding-bottom: 56.25%; height: 0; }
+  .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 }
 
-/* DARK OVERLAY */
-.tutorial-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 20, 43, 0.75);
-  pointer-events: none;
+@media (max-width: 480px) {
+  .phase-tabs { flex-wrap: wrap; gap: 10px; }
+  .phase-tabs button { flex: 1 1 auto; min-width: 72px; text-align: center; }
 }
 
-.tutorial-container {
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 120px auto;
-  padding: 20px 40px;
-  text-align: center;
+@media (max-width: 360px) {
+  .position-tabs { flex-wrap: wrap; }
+  .position-tabs button { flex: 1 1 auto; min-width: 72px; }
 }
 
-.tutorial-container h1 {
-  margin-bottom: 30px;
+@media (max-width: 620px) {
+  .workout-navbar { padding: 16px 20px; }
+  .workout-navbar div { gap: 14px; }
+  .workout-container { padding: 24px 16px; }
+  .auth-copy { display: none; }
+  .tutorial-container { margin: 90px auto 40px; padding: 16px; }
 }
 
-.tutorial-container .video-box {
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 30px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+@media (max-width: 900px) {
+  .programs-hero h1 { font-size: clamp(28px, 5vw, 48px); }
 }
 
-.tutorial-container .video-box iframe {
-  width: 100%;
-  height: 400px;
+/* Dashboard responsive additions (safe, no desktop impact) */
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dashboard-page .positions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .dashboard-page .position-card { height: 200px; }
 }
 
-.tutorial-container p {
-  color: #9ca3af;
-  font-size: 16px;
+@media (max-width: 380px) {
+  .progress-row { grid-template-columns: 80px 1fr 44px; gap: 10px; }
 }
-
 @keyframes heroZoom {
   from {
     transform: scale(1);

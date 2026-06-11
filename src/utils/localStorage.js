@@ -161,3 +161,41 @@ export const sanitizeString = (str) => {
   if (typeof str !== "string") return "";
   return str.trim().replace(/[<>'"]/g, "").substring(0, 500);
 };
+
+// ─── Google / Firebase session helpers ───────────────────────────────────────
+// Uses the same CURRENT_USER_KEY as email sessions — unified session store.
+
+/**
+ * Persist a Firebase Google user to localStorage.
+ * Stores only: uid, displayName, email, photoURL, loginTime, provider.
+ * Always overwrites to prevent duplicate entries.
+ * Never stores Firebase tokens or sensitive credentials.
+ */
+export const setGoogleUser = (firebaseUser) => {
+  if (!firebaseUser) {
+    localStorage.removeItem(CURRENT_USER_KEY);
+    sessionStorage.removeItem(CURRENT_USER_KEY);
+    return;
+  }
+  const session = {
+    uid:         firebaseUser.uid,
+    displayName: firebaseUser.displayName || "Elite Player",
+    email:       firebaseUser.email,
+    photoURL:    firebaseUser.photoURL || null,
+    loginTime:   new Date().toISOString(),
+    provider:    "google",
+    // Alias fields used by existing dashboard/navbar code
+    name:        firebaseUser.displayName || "Elite Player",
+  };
+  // Always use localStorage (persistent across tabs and restarts)
+  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(session));
+  sessionStorage.removeItem(CURRENT_USER_KEY); // prevent stale duplicate
+};
+
+/**
+ * Clear Google session from both storages.
+ */
+export const clearGoogleSession = () => {
+  localStorage.removeItem(CURRENT_USER_KEY);
+  sessionStorage.removeItem(CURRENT_USER_KEY);
+};
